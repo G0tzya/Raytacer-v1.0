@@ -6,16 +6,16 @@ pub mod primitives {
         fn intersection(&self, ray_origin: Vec3, ray_direction: Vec3) -> Option<(f32, Vec3)>;
         fn get_material(&self) -> &Material;
     }
-    pub struct Sphere {
+    pub struct Sphere <'a> {
         pub center: Vec3,
         pub radius: f32,
-        pub material: Material
+        pub material: &'a Material
     }
     
-    pub struct Plane {
+    pub struct Plane <'a> {
         pub point: Vec3,
         pub normal: Vec3,
-        pub material: Material
+        pub material: &'a Material
     }
 
     #[derive(Default)]
@@ -25,7 +25,7 @@ pub mod primitives {
         pub emission: Vec3,
     }
     
-    impl Primitives for Sphere {
+    impl Primitives for Sphere <'_>{ // not sure why it needs an unspesified lifetime
         fn intersection(&self, ray_origin: Vec3, ray_dir: Vec3) -> Option<(f32, Vec3)> {
             let oc = ray_origin - self.center;
     
@@ -62,12 +62,12 @@ pub mod primitives {
             Some((t, normal))
         }
 
-        fn get_material(&self) -> &Material {
+        fn get_material(&self) -> & Material {
             &self.material
         }
     }
     
-    impl Primitives for Plane {
+    impl Primitives for Plane <'_>{
         fn intersection(&self, ray_origin: Vec3, ray_dir: Vec3) -> Option<(f32, Vec3)> {
             let denom = ray_dir.dot(self.normal);
     

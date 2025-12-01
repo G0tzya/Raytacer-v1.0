@@ -97,7 +97,8 @@ pub fn render_function(
     }
 
     let random_hemisphere_vector= sample_cosine_hemisphere(hit_normal, rng)
-        .lerp(perfect_reflect_direction, 1.0 - direct_hit_material.roughness);
+        .lerp(perfect_reflect_direction, 1.0 - direct_hit_material.roughness)
+        .normalize();
     // let random_hemisphere_vector = ray_direction.reflect(hit_normal);
 
     let indirect_color = cast_ray(
@@ -202,7 +203,8 @@ fn cast_ray (
 
     // calculate indirect lighting recursivly n+1
     let random_hemisphere_vector= sample_cosine_hemisphere(hit_normal, random)
-        .lerp(perfect_reflect_direction, 1.0 - direct_hit_material.roughness);
+        .lerp(perfect_reflect_direction, 1.0 - direct_hit_material.roughness)
+        .normalize();
     // let random_hemisphere_vector = ray_direction.reflect(hit_normal);
 
     let indirect_light_value = cast_ray (

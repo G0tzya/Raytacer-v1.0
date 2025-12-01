@@ -7,10 +7,10 @@ mod primitives;
 mod lights;
 
 fn main() {
-    let screen_width: i32 = 400;
-    let screen_height: i32 = 400;
+    let screen_width: i32 = 800;
+    let screen_height: i32 = 800;
 
-    let max_pixel_average = 40;
+    let max_pixel_average = 150;
 
     let mut glfw = glfw::init(glfw::fail_on_errors).unwrap();
     glfw.window_hint(glfw::WindowHint::ContextVersionMajor(4));
@@ -130,7 +130,7 @@ fn main() {
     let sphere_one = primitives::primitives::Sphere {
         center: Vec3::new(0.0, 0.0, 0.0),
         radius: 1.0,
-        material: primitives::primitives::Material {
+        material: &primitives::primitives::Material {
             color: Vec3::new(200.0, 20.0, 200.0),
             roughness: 0.7,
             emission: Vec3::new(0.0, 0.0, 0.0),
@@ -140,7 +140,7 @@ fn main() {
     let sphere_two = primitives::primitives::Sphere {
         center: Vec3::new(0.9, 0.5, 0.3),
         radius: 0.5 ,
-        material: primitives::primitives::Material {
+        material: &primitives::primitives::Material {
             color: Vec3::new(255.0, 255.0, 255.0) ,
             roughness: 0.70,
             emission: Vec3::new(0.0, 0.0, 0.0),
@@ -150,9 +150,9 @@ fn main() {
     let ground_plane = primitives::primitives::Plane {
         point: Vec3::new(0.0, 1.0, 0.0),    
         normal: Vec3::new(0.0, -1.0, 0.0),
-        material: primitives::primitives::Material {
+        material: &primitives::primitives::Material {
             color: Vec3::new(255.0, 255.0, 255.0) ,
-            roughness: 0.0,
+            roughness: 0.9,
             emission: Vec3::new(0.0, 0.0, 0.0),
         }   
     };
@@ -160,7 +160,7 @@ fn main() {
     let wall_plane = primitives::primitives::Plane {
         point: Vec3::new(0.0, 0.0, -2.0),    
         normal: Vec3::new(0.0, 0.0, 1.0),
-        material: primitives::primitives::Material {
+        material: &primitives::primitives::Material {
             color: Vec3::new(255.0, 255.0, 255.0) ,
             roughness: 0.9,
             emission: Vec3::new(0.0, 0.0, 0.0),
